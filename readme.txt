@@ -1,5 +1,5 @@
-=== WP-PageNavi ===
-Tags: navigation, pagination, paging, pages  
+=== WP-CompoundiCalc ===
+Tags: calculators, compound interest, interest 
 Requires at least: 3.2  
 Tested up to: 4.7  
 Stable tag: 2.91  
