@@ -11,7 +11,8 @@ Creates a compound interest calculator with the shortcode [compound_calculator]
 == Description ==
 (todo include description)
 
-This plugin provides the `wp_pagenavi()` template tag which generates fancy pagination links. 
-
 = Usage =
 Use the shortcode [compound_calculator] in posts or pages.
+
+Or try with any of the following attributes for default values
+[compound_calculator principle="35000" deposit="3000" apr="0.05" translate="false"]

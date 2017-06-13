@@ -1,7 +1,6 @@
 <?php
 /*
 Plugin Name: Compound Calculator
-Plugin URI: http://lesterchan.net/portfolio/programming/php/
 Description: Compound interest calculator with shortcode and customizable labels.
 Version: 1.0
 Author: BenS
@@ -191,8 +190,8 @@ function _compoundicalc_init() {
 			echo $val;
 		}
 		
-		static function get_session_val($prop) {
-			return isset($_SESSION[static::$session_prefix . '_' . $prop]) ? $_SESSION[static::$session_prefix . '_' . $prop] : null;
+		static function get_session_val($prop, $default = null) {
+			return isset($_SESSION[static::$session_prefix . '_' . $prop]) ? $_SESSION[static::$session_prefix . '_' . $prop] : $default;
 		}
 		
 		static function floatize_prop($prop) {
@@ -206,14 +205,14 @@ function _compoundicalc_init() {
 		}
 		
 		static function get_template($instance) {
-			$deposit_op = static::get_session_val('deposit_op');
+			$deposit_op = static::get_session_val('deposit_op', static::$args['deposit_op']);
 			$deposit_amt = static::floatize_prop('deposit');   
 			$apr = static::floatize_prop('apr');   
 			$inflation_rate = static::floatize_prop('inflation_rate');   
 			$principle = static::intize_prop('principle');   
 			$years = static::intize_prop('years');   
 			
-			if( $deposit_opt === '-' ) {
+			if( $deposit_op === '-' ) {
 				$deposit_amt = $deposit_amt * -1;
 			}
 			

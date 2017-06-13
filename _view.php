@@ -23,7 +23,7 @@
 		</div>
 		<div class="form_field">
 			<label class="not_required"><?php CompoundiCalc_Core::labelize('deposit_amount_text') ?></label>
-			<input type="number" name="<?php echo CompoundiCalc_Core::$session_prefix; ?>[deposit]" value="<?php echo $deposit_amt ?>" step="1" />
+			<input type="number" name="<?php echo CompoundiCalc_Core::$session_prefix; ?>[deposit]" value="<?php echo abs($deposit_amt) ?>" step="1" />
 			<select name="<?php echo CompoundiCalc_Core::$session_prefix; ?>[deposit_op]">
 				<option value="-"<?php echo  $deposit_op === '-' ? ' selected' : '' ?>><?php CompoundiCalc_Core::labelize('withdrawal_text', 'ucwords') ?></option>
 				<option value=""<?php echo  $deposit_op !== '-' ? 'selected' : '' ?>><?php CompoundiCalc_Core::labelize('deposit_text', 'ucwords') ?></option>
