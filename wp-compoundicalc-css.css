@@ -1,1 +1,169 @@
-/Users/BenS/workspace/compound_interest_calculator_plugin/css/charts.css
+.wp-compoundicalc-body .calculator_hidden {
+    visibility: hidden;
+}
+
+.wp-compoundicalc-body .calculator_graphs > div {
+    width: 900px; 
+    height: 500px;
+}
+
+.wp-compoundicalc-body .calculator_tabs {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    height: 36px;
+    width: 100%;
+}
+
+.wp-compoundicalc-body .calculator_tabs.calculator_body_tabs {
+	margin: 5em 0 0 0;
+}
+
+.wp-compoundicalc-body .calculator_tabs li {
+    
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#403b34), to(#544a48));
+/* 			border-bottom: 1px solid #cc6102; */
+	list-style: none;
+	
+	
+	float: left;
+    margin: 0 !important;
+    padding: 0 !important;
+    min-height: 35px;
+    line-height: 35px;
+    margin-bottom: -1px;
+    overflow: hidden;
+    border-right: 1px solid #fff;
+}
+
+.wp-compoundicalc-body .calculator_tabs li.calculator_tab_active {
+    background: #cc6102;
+}
+
+.wp-compoundicalc-body .calculator_tabs li a {
+    text-decoration: none;
+    color: #fff;
+    display: block;
+    font-size: 13px;
+    padding: 0 15px;
+    border: 0px;
+    outline: none;
+    font-family: 'Raleway', "Trebuchet MS", Arial, sans-serif;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.wp-compoundicalc-body .calculator_form, .calculator_results {
+    font-family: Arial, sans-serif;
+}
+
+.wp-compoundicalc-body .calculator_form {
+	width: 617px;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#cc6102), to(#f0942d));
+	padding: 20px 20px 20px 20px;
+}
+
+.wp-compoundicalc-body .calculator_form input {
+    font-size: 20px;
+    height: 30px;
+    line-height: 26px;
+    margin-bottom: 10px;
+    position: relative;
+    width: 10em;
+	padding: 10px;
+    color: #333;
+    border: 1px solid #666;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow: 0 0 2px #CCCCCC;
+    -webkit-box-shadow: 0 0 2px #CCCCCC;
+    box-shadow: 0 0 2px #CCCCCC;
+    vertical-align: top;
+}
+
+.wp-compoundicalc-body .calculator_form select {
+	font-size: 16px;
+    border: 1px solid #666;
+    margin-top: 3px;
+    vertical-align: top;
+}
+
+.wp-compoundicalc-body .calculator_form input[type="submit"] {
+    -webkit-box-shadow: rgba(0,0,0,0.2) 0 1px 0 0;
+    -moz-box-shadow: rgba(0,0,0,0.2) 0 1px 0 0;
+    box-shadow: rgba(0,0,0,0.2) 0 1px 0 0;
+    color: #333;
+    background-color: #ddd;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border: none;
+    font-family: 'Helvetica Neue',Arial,sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    height: 30px;
+    padding: 0px 16px;
+    text-shadow: #FE6 0 1px 0;
+    margin-right: 10px;
+}
+
+.wp-compoundicalc-body .calculator_form label {
+    display: inline-block;
+    width: 35%;
+    font-size: 1em;
+    line-height: 24px;
+    margin-right: 10px;
+    padding-top: 3px;
+    padding-right: 10px;
+    min-height: 24px;
+    text-align: right;
+    color: #fff;
+    font-family: 'Raleway', "Trebuchet MS", Arial, sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    
+}
+
+.wp-compoundicalc-body .calculator_form label.not_required, .calculator_form span.not_required {
+    color: #f6d2ab;
+}
+
+.wp-compoundicalc-body .calculator_form .form_field span {
+    font-family: 'Raleway', "Trebuchet MS", Arial, sans-serif;
+    display: inline-block;
+    font-size: 15px;
+    color: #fff;
+    margin-left: 3px;
+    margin-bottom: 12px;
+    top: 2px;
+}
+
+.wp-compoundicalc-body .calculator_results td {
+    padding-left: 10px;
+    border-bottom: 1px solid #ddd;
+    font-size: 13px;
+	line-height: 17px;
+}
+
+.wp-compoundicalc-body .calculator_highlight {
+    background-color: #ffc;
+    font-weight: bold;
+}
+
+.wp-compoundicalc-body thead .calculator_highlight {
+    font-weight: normal;
+}
+
+.wp-compoundicalc-body .calculator_results table {
+    margin-top: 20px;
+    border-spacing: 1px;
+	border-collapse: separate;
+}
+
+.wp-compoundicalc-body .calculator_results thead td {
+    background-color: #544a48;
+	color: #fff;
+	padding: 5px 10px;
+	margin-bottom: 10px;
+}
