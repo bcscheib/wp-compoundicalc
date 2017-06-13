@@ -80,7 +80,7 @@ class CompoundCalculator_Options_Page extends scbAdminPage {
 					' . __( 'Translation for the word total.', $this->textdomain ) . '<br />'
 			),
 			array(
-				'title' => __( 'BalanceText', $this->textdomain ),
+				'title' => __( 'Balance Text', $this->textdomain ),
 				'type' => 'text',
 				'name' => 'balance_text',
 				'extra' => 'size="50"',
@@ -194,7 +194,7 @@ class CompoundCalculator_Options_Page extends scbAdminPage {
 		);
 
 		$out .=
-		 html( 'h3', __( 'Table Labels', $this->textdomain ) ) .
+		 html( 'h3', __( 'Table/Graph Translations', $this->textdomain ) ) .
 		$this->table( $rows );
 
 
