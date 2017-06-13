@@ -52,6 +52,7 @@ function _compoundicalc_init() {
 		'inflation_rate' => 0,
 		'years' => 1,
 		'deposit' => 0.0,
+		'deposit_op' => '+',
 		'translate' => true
 	);
 
@@ -102,37 +103,19 @@ function _compoundicalc_init() {
 	function wp_compoundicalc( $args = array() ) {
 		require_once( __DIR__ . '/lib/calculator.php' );
 		
-		CompoundiCalc_Core::set_prop('args', CompoundiCalc_Core::merge_args($args) );
-		CompoundiCalc_Core::set_prop('session_prefix', 'calc' . get_the_id());
-		CompoundiCalc_Core::set_prop('action', 'wp-compoundicalc');
+		$core = CompoundiCalc_Core;
 		
-		extract(CompoundiCalc_Core::$args, EXTR_SKIP );
+		$core::set_prop('args', CompoundiCalc_Core::merge_args($args) );
+		$core::set_prop('session_prefix', 'calc' . get_the_id());
+		$core::set_prop('action', 'wp-compoundicalc');
 		
-		$deposit_amt = CompoundiCalc_Core::floatize_prop('deposit');   
-		$apr = CompoundiCalc_Core::floatize_prop('apr');   
-		$inflation_rate = CompoundiCalc_Core::floatize_prop('inflation_rate');   
-		$principle = CompoundiCalc_Core::intize_prop('principle');   
-		$years = CompoundiCalc_Core::intize_prop('years');   
-		
-		$deposit_op = isset($_SESSION[$session_prefix . '_deposit_op']) && $_SESSION[CompoundiCalc_Core::$session_prefix . '_deposit_op'] === '-' ? $_SESSION[CompoundiCalc_Core::$session_prefix . '_deposit_op'] : '+';
-		
-		if( $deposit_op === '-' ) {
-			$deposit_amt = $deposit_amt * -1;
-		}
-		
-		CompoundiCalc_Core::reset_session();
+		extract($core::$args, EXTR_SKIP );
 		
 		$instance = new Calculator();
-		$schedule = $instance->calculate_schedule($deposit_amt, $principle, $apr, 12, $years, $inflation_rate);
-		    
-		$tmpl = CompoundiCalc_Core::start_template();
-		require_once(__DIR__ . '/_view.php');
-		CompoundiCalc_Core::end_template();
+		$tmpl = $core::get_template($instance);
+		$core::reset_session();
 		
-		
-		$out = $before . "<" . $wrapper_tag . " class='" . $wrapper_class . "'>\n" . $tmpl->body . "\n</" . $wrapper_tag . ">" . $after;
-	
-		return apply_filters( 'wp_compoundicalc', $out );
+		return apply_filters( 'wp_compoundicalc', $before . "<" . $wrapper_tag . " class='" . $wrapper_class . "'>\n" . $tmpl . "\n</" . $wrapper_tag . ">" . $after );
 	}
 
 	class CompoundiCalc_Core {
@@ -208,34 +191,44 @@ function _compoundicalc_init() {
 			echo $val;
 		}
 		
+		static function get_session_val($prop) {
+			return isset($_SESSION[static::$session_prefix . '_' . $prop]) ? $_SESSION[static::$session_prefix . '_' . $prop] : null;
+		}
+		
 		static function floatize_prop($prop) {
-			return isset($_SESSION[static::$session_prefix . '_' . $prop]) ? abs(floatval($_SESSION[static::$session_prefix . '_' . $prop])) : abs(floatval(static::$args[$prop]));
+			$val = static::get_session_val($prop);
+			return !is_null($val) ? abs(floatval($val)) : abs(floatval(static::$args[$prop]));
 		}
 		
 		static function intize_prop($prop) {
-			return isset($_SESSION[static::$session_prefix . '_' . $prop]) ? intval($_SESSION[static::$session_prefix . '_' . $prop]) : intval(static::$args[$prop]);
+			$val = static::get_session_val($prop);
+			return !is_null($val) ? intval($val) : intval(static::$args[$prop]);
 		}
 		
-		static function start_template() {
+		static function get_template($instance) {
+			$deposit_op = static::get_session_val('deposit_op');
+			$deposit_amt = static::floatize_prop('deposit');   
+			$apr = static::floatize_prop('apr');   
+			$inflation_rate = static::floatize_prop('inflation_rate');   
+			$principle = static::intize_prop('principle');   
+			$years = static::intize_prop('years');   
+			
+			if( $deposit_opt === '-' ) {
+				$deposit_amt = $deposit_amt * -1;
+			}
+			
+			$schedule = $instance->calculate_schedule($deposit_amt, $principle, $apr, 12, $years, $inflation_rate);
+			
 			$tmpl = new stdClass();
 			$tmpl->body = '';
 			ob_start(function($buffer) use ($tmpl) {
 				$tmpl->body = $buffer;
 				return $buffer;
 			});
-			return $tmpl;
-		}
-		
-		static function end_template() {
+			
+			require_once(__DIR__ . '/_view.php');
 			ob_end_clean();
-		}	
-		
-		static function evaluate_template($tmpl, $key_values = array() ) {
-			$body = $tmpl->body;
-			foreach( $key_values as $key => $value ) {
-				$body = str_replace("#$key#", $value, $body);
-			}
-			return $body;
+			return $tmpl->body;
 		}
 	}
 
