@@ -16,13 +16,24 @@ function _pagenavi_init() {
 	require_once dirname( __FILE__ ) . '/core.php';
 
 	$options = new scbOptions( 'compoundicalc_options', __FILE__, array(
+		/* misc values */
+		'withdrawal_text'   => 'Withdrawal',
+		'deposit_text'   => 'Deposit',
+		'years_singular_text'   => 'year',
+		'years_plural_text'   => 'years',
+		'interest_text'   => 'Interest',
+		'total_text'   => 'Total',
+		'balance_text'   => 'Balance',
+		
 		/* form values */
 		'tab_text'          => 'Regular Deposit/Withdrawal',
 		'principle_text'    => 'Base Amount',
 		'apr_text'          => 'Annual Interest Rate',
 		'period_text'       => 'Calculation Period',
 		'period_suffix'     => 'years',
-		'deposit_text'      => 'Regular Monthly?',
+		'deposit_amount_text'      => 'Regular Monthly?',
+		'inflation_rate_text'      => 'Inflation Rate?',
+		'calculate_text'      => 'Calculate',
 		
 		/* table values */
 		'results_tab_text'  => 'Calculation Results',
