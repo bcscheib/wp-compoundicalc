@@ -37,7 +37,9 @@ function _pagenavi_init() {
 		
 		/* table values */
 		'results_tab_text'  => 'Calculation Results',
-		'graphs_tab_text'   => 'Graphs of Results'
+		'graphs_tab_text'   => 'Graphs of Results',
+		'graph1_title_text'   => 'Graph 1 - Balance (Compounded Monthly)',
+		'graph2_title_text'   => 'Graph 2 - Total Interest (Compounded Monthly)',
 	) );
     
 	CompoundiCalc_Core::init( $options );

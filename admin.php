@@ -175,6 +175,22 @@ class CompoundCalculator_Options_Page extends scbAdminPage {
 				'desc' => '<br />
 					' . __( 'Text that appears in the tab to show graphs container.', $this->textdomain ) . '<br />'
 			),
+			array(
+				'title' => __( 'Graph 1 Title', $this->textdomain ),
+				'type' => 'text',
+				'name' => 'graph1_title_text',
+				'extra' => 'size="50"',
+				'desc' => '<br />
+					' . __( 'Title of the first results graph.', $this->textdomain ) . '<br />'
+			),
+			array(
+				'title' => __( 'Graph 2 Title', $this->textdomain ),
+				'type' => 'text',
+				'name' => 'graph2_title_text',
+				'extra' => 'size="50"',
+				'desc' => '<br />
+					' . __( 'Title of the second results graph.', $this->textdomain ) . '<br />'
+			)
 		);
 
 		$out .=
