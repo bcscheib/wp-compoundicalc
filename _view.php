@@ -1,3 +1,8 @@
+<? 
+	$last_year = !empty($schedule['years']) ? $schedule['years'][sizeof($schedule['years']) - 1] : null;
+	$end_balance = !empty($last_year) ? money_format('%(!#0n', $last_year['balance']) : null; 
+?>
+
 <div class="wp-compoundicalc-body">
 	<ul class="calculator_tabs">
 		<li class="calculator_tab_active"><a href="javascript:;"><?php CompoundiCalc_Core::labelize('tab_text') ?></a></li>
@@ -9,21 +14,25 @@
 		
 		<div class="form_field">
 			<label><?php CompoundiCalc_Core::labelize('principle_text') ?></label>
-			<input type="number" name="<?php echo CompoundiCalc_Core::$session_prefix; ?>[principle]" value="<?php echo  $principle ?>" />
+			<span class="calculator-prefix">$</span>
+			<input type="text" name="<?php echo CompoundiCalc_Core::$session_prefix; ?>[principle]" value="<?php echo  $principle ?>" />
 		</div>
 		<div class="form_field">
 			<label><?php CompoundiCalc_Core::labelize('apr_text') ?></label>
+			<span class="calculator-prefix"></span>
 			<input type="number" name="<?php echo CompoundiCalc_Core::$session_prefix; ?>[apr]" value="<?php echo $apr * 100 ?>" step="0.01" />
 			<span>%</span>
 		</div>
 		<div class="form_field">
 			<label><?php CompoundiCalc_Core::labelize('period_text') ?></label>
-			<input type="number" name="<?php echo CompoundiCalc_Core::$session_prefix; ?>[years]" value="<?php echo  $years ?>" />
+			<span class="calculator-prefix"></span>
+			<input type="number" name="<?php echo CompoundiCalc_Core::$session_prefix; ?>[years]" value="<?php echo  $years ?>" step="1" />
 			<span><?php CompoundiCalc_Core::labelize('years_plural_text', 'years', 'strtolower') ?></span>
 		</div>
 		<div class="form_field">
 			<label class="not_required"><?php CompoundiCalc_Core::labelize('deposit_amount_text') ?></label>
-			<input type="number" name="<?php echo CompoundiCalc_Core::$session_prefix; ?>[deposit]" value="<?php echo abs($deposit_amt) ?>" step="1" />
+			<span class="calculator-prefix">$</span>
+			<input type="text" name="<?php echo CompoundiCalc_Core::$session_prefix; ?>[deposit]" value="<?php echo $deposit_amt ?>" />
 			<select name="<?php echo CompoundiCalc_Core::$session_prefix; ?>[deposit_op]">
 				<option value="-"<?php echo  $deposit_op === '-' ? ' selected' : '' ?>><?php CompoundiCalc_Core::labelize('withdrawal_text', 'ucwords') ?></option>
 				<option value=""<?php echo  $deposit_op !== '-' ? 'selected' : '' ?>><?php CompoundiCalc_Core::labelize('deposit_text', 'ucwords') ?></option>
@@ -31,11 +40,20 @@
 		</div>
 		<div class="form_field">
 			<label class="not_required"><?php CompoundiCalc_Core::labelize('inflation_rate_text') ?></label>
-			<input type="number" name="<?php echo CompoundiCalc_Core::$session_prefix; ?>[inflation_rate]" value="<?php echo $inflation_rate * 100 ?>" step="1" />
+			<span class="calculator-prefix"></span>
+			<input type="number" name="<?php echo CompoundiCalc_Core::$session_prefix; ?>[inflation_rate]" value="<?php echo $inflation_rate * 100 ?>" step="0.01" />
 			<span class="not_required">%</span>
 		</div>
+		<?php if( !is_null($end_balance) ) { ?>
+		<div class="form_field">
+			<label class="not_required"><?php CompoundiCalc_Core::labelize('end_balance_text') ?></label>
+			<span class="calculator-prefix">$</span>
+			<div class="form_field_val"><?php echo $end_balance; ?></div>
+		</div>
+		<?php } ?>
 		<div class="form_field">
 			<label>&nbsp;</label>
+			<span class="calculator-prefix"></span>
 			<input type="submit" name="submit" value="<?php CompoundiCalc_Core::labelize('calculate_text') ?>" />
 		</div>
 	</form>
@@ -48,7 +66,10 @@
 		<table>
 			<thead>
 				<tr>
-					<td class="calculator_highlight"><?php CompoundiCalc_Core::labelize('years_singular_text', 'ucwords') ?></td>
+					<td class="calculator_highlight calculator-year-col">
+						<span class="full-year"><?php CompoundiCalc_Core::labelize('years_singular_text', 'ucwords') ?></span>
+						<span class="short-year"><?php CompoundiCalc_Core::labelize('years_singular_text', function($word){ return ucwords($word[0]);}) ?></span>
+					</td>
 					<td><?php CompoundiCalc_Core::labelize('years_singular_text', 'ucwords') ?> <?php   $deposit_op === '-' ?  CompoundiCalc_Core::labelize('withdrawal_text', 'ucwords') : CompoundiCalc_Core::labelize('deposit_text', 'ucwords') ?></td>
 					<td><?php CompoundiCalc_Core::labelize('years_singular_text', 'ucwords') ?> <?php CompoundiCalc_Core::labelize('interest_text', 'Interest', 'ucwords') ?></td>
 					<td><?php CompoundiCalc_Core::labelize('total_text', 'ucwords') ?> <?php $deposit_op === '-' ? CompoundiCalc_Core::labelize('withdrawal_text', 'Withdrawal', 'ucwords') : CompoundiCalc_Core::labelize('deposit_text', 'ucwords') ?></td>

@@ -23,13 +23,14 @@ function _compoundicalc_init() {
 		'balance_text'   => 'Balance',
 		
 		/* form values */
-		'tab_text'          => 'Regular Deposit/Withdrawal',
+		'tab_text'          => 'Regular Deposit / Withdrawal',
 		'principle_text'    => 'Base Amount',
 		'apr_text'          => 'Annual Interest Rate',
 		'period_text'       => 'Calculation Period',
 		'period_suffix'     => 'years',
 		'deposit_amount_text'      => 'Regular Monthly?',
 		'inflation_rate_text'      => 'Inflation Rate?',
+		'end_balance_text'      => 'End Balance',
 		'calculate_text'      => 'Calculate',
 		
 		/* table values */
@@ -64,6 +65,7 @@ function _compoundicalc_init() {
 	add_action( 'admin_post_nopriv_wp-compoundicalc', 'wp_compoundicalc_post' );
 		
 	function wp_compoundicalc_post() {
+		$core = CompoundiCalc_Core;
 		$page_id = isset($_REQUEST['origin']) ? intval($_REQUEST['origin']) : null;
 		
 		if( isset($_POST['calc' . $page_id]) ) {
@@ -75,11 +77,14 @@ function _compoundicalc_init() {
 			}
 			
 			if( isset($post_prefix['principle']) ) {
-				$_SESSION[$post_prefix_text . '_principle'] = floatval($post_prefix['principle']);
+				$_SESSION[$post_prefix_text . '_principle'] = $core::demonetize( $post_prefix['principle'] );
+				
 			}
+			
+			
 		
 			if( isset($post_prefix['deposit']) ) {
-				$_SESSION[$post_prefix_text . '_deposit'] = floatval($post_prefix['deposit']);
+				$_SESSION[$post_prefix_text . '_deposit'] = $core::demonetize($post_prefix['deposit']);
 			}
 		
 			if( isset($post_prefix['years']) ) {
@@ -184,7 +189,8 @@ function _compoundicalc_init() {
 			
 			$val = function_exists('sanitize_text_field') ? trim(sanitize_text_field($val)) : trim($val); // sanitize these values 
 			
-			if( function_exists($filter_function) ) {
+			if( is_callable($filter_function) ) {
+				
 				$val = call_user_func_array($filter_function, array($val) );
 			}
 			echo $val;
@@ -196,7 +202,18 @@ function _compoundicalc_init() {
 		
 		static function floatize_prop($prop) {
 			$val = static::get_session_val($prop);
-			return !is_null($val) ? abs(floatval($val)) : abs(floatval(static::$args[$prop]));
+			return !is_null($val) ? floatval($val) : abs(floatval(static::$args[$prop]));
+		}
+		
+		static function monetize_prop($prop) {
+			
+			$val = static::get_session_val($prop);
+			
+				
+			setlocale(LC_MONETARY, 'en_US');
+			$val = !is_null($val) ? money_format('%!n', $val) : money_format('%!n', static::$args[$prop]);
+			
+			return $val;
 		}
 		
 		static function intize_prop($prop) {
@@ -204,19 +221,32 @@ function _compoundicalc_init() {
 			return !is_null($val) ? intval($val) : intval(static::$args[$prop]);
 		}
 		
+		static function demonetize($val) {
+			return floatval(str_replace(array(',','$'), '', strval($val)));
+		}
+		
 		static function get_template($instance) {
 			$deposit_op = static::get_session_val('deposit_op', static::$args['deposit_op']);
-			$deposit_amt = static::floatize_prop('deposit');   
+			$deposit_amt = static::monetize_prop('deposit');   
 			$apr = static::floatize_prop('apr');   
 			$inflation_rate = static::floatize_prop('inflation_rate');   
-			$principle = static::intize_prop('principle');   
+			$principle = static::monetize_prop('principle');   
+			
 			$years = static::intize_prop('years');   
 			
-			if( $deposit_op === '-' ) {
-				$deposit_amt = $deposit_amt * -1;
-			}
+			$deposit_amt_factor = $deposit_op === '-' ? -1 : 1;
 			
-			$schedule = $instance->calculate_schedule($deposit_amt, $principle, $apr, 12, $years, $inflation_rate);
+			
+			$raw_schedule = $instance->calculate_schedule(static::demonetize($deposit_amt) * $deposit_amt_factor, static::demonetize($principle), $apr, 12, $years, $inflation_rate);
+			
+			# limit the schedule to one negative value
+			$schedule = array('years' => array());
+			foreach($raw_schedule['years'] as $year => $year_sch) { 
+				$schedule['years'][] = $year_sch;
+				if( $year_sch['balance'] < 0 ) {
+					break;
+				}
+			}
 			
 			$tmpl = new stdClass();
 			$tmpl->body = '';
@@ -235,7 +265,7 @@ function _compoundicalc_init() {
 
 	if ( is_admin() ) {
 		require_once dirname( __FILE__ ) . '/admin.php';
-		new CompoundCalculator_Options_Page( __FILE__, $options );
+		new CompoundCalculator_Options_Page( __FILE__, $translations );
 	}
 }
 scb_init( '_compoundicalc_init' );

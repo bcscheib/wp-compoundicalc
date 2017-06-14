@@ -1,9 +1,14 @@
+.wp-compoundicalc-body {
+	word-wrap: normal;
+}
+
 .wp-compoundicalc-body .calculator_hidden {
     visibility: hidden;
 }
 
 .wp-compoundicalc-body .calculator_graphs > div {
-    width: 900px; 
+    width: 100%;
+    max-width: 900px;
     height: 500px;
 }
 
@@ -13,6 +18,7 @@
     list-style: none;
     height: 36px;
     width: 100%;
+    overflow: hidden;
 }
 
 .wp-compoundicalc-body .calculator_tabs.calculator_body_tabs {
@@ -40,7 +46,7 @@
     background: #cc6102;
 }
 
-.wp-compoundicalc-body .calculator_tabs li a {
+.wp-compoundicalc-body .calculator_tabs li a, .wp-compoundicalc-body .calculator_tabs li a:active, .wp-compoundicalc-body .calculator_tabs li a:visited {
     text-decoration: none;
     color: #fff;
     display: block;
@@ -51,6 +57,7 @@
     font-family: 'Raleway', "Trebuchet MS", Arial, sans-serif;
     font-weight: 500;
     text-transform: uppercase;
+    box-shadow: none;
 }
 
 .wp-compoundicalc-body .calculator_form, .calculator_results {
@@ -58,7 +65,8 @@
 }
 
 .wp-compoundicalc-body .calculator_form {
-	width: 617px;
+	width: 100%;
+	max-width: 617px;
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#cc6102), to(#f0942d));
 	padding: 20px 20px 20px 20px;
 }
@@ -69,7 +77,7 @@
     line-height: 26px;
     margin-bottom: 10px;
     position: relative;
-    width: 10em;
+    width: 9em;
 	padding: 10px;
     color: #333;
     border: 1px solid #666;
@@ -129,6 +137,17 @@
     color: #f6d2ab;
 }
 
+.wp-compoundicalc-body .calculator_form .form_field {
+	margin: 1em 0;
+}
+
+.wp-compoundicalc-body .calculator_form .form_field .form_field_val {
+	color: white;
+/* 	font-weight: bold; */
+	display: inline-block;
+	font-size: 1.2em;
+}
+
 .wp-compoundicalc-body .calculator_form .form_field span {
     font-family: 'Raleway', "Trebuchet MS", Arial, sans-serif;
     display: inline-block;
@@ -137,6 +156,7 @@
     margin-left: 3px;
     margin-bottom: 12px;
     top: 2px;
+    vertical-align: top;
 }
 
 .wp-compoundicalc-body .calculator_results td {
@@ -166,4 +186,130 @@
 	color: #fff;
 	padding: 5px 10px;
 	margin-bottom: 10px;
+}
+
+.wp-compoundicalc-body .calculator_year_col .full-year {
+	display: block;
+}
+
+.wp-compoundicalc-body .calculator-year-col .short-year {
+	display: none;
+}
+
+.wp-compoundicalc-body .form_field span.calculator-prefix {
+	display: inline-block;
+	width: 1em;
+	font-weight: bold;
+	font-size: 1.2em;
+	margin-right: -0.4em;
+	vertical-align: top;
+}
+
+@media only screen and (max-width: 650px) {
+	.wp-compoundicalc-body form {
+		
+	}
+	
+    .wp-compoundicalc-body .calculator_form label {
+	    display: block;
+	    width: 100%;
+	    padding-left: 0;
+	    padding-right: 0;
+	    padding-top: 0.5em;
+	    padding-bottom: 0.5em;
+	    text-align: left;
+/*
+	    font-size: 1em;
+	    line-height: 24px;
+	    margin-right: 10px;
+	    padding-top: 3px;
+	    padding-right: 10px;
+	    min-height: 24px;
+	    text-align: right;
+	    color: #fff;
+	    font-family: 'Raleway', "Trebuchet MS", Arial, sans-serif;
+	    font-weight: 600;
+	    text-transform: uppercase;
+*/
+	    
+	}
+	
+	.wp-compoundicalc-body .calculator_form input {
+/*
+	    font-size: 20px;
+	    height: 30px;
+	    line-height: 26px;
+	    margin-bottom: 10px;
+	    position: relative;
+*/
+	    width: 7em;
+/*
+		padding: 10px;
+	    color: #333;
+	    border: 1px solid #666;
+	    -moz-border-radius: 5px;
+	    -webkit-border-radius: 5px;
+	    border-radius: 5px;
+	    -moz-box-shadow: 0 0 2px #CCCCCC;
+	    -webkit-box-shadow: 0 0 2px #CCCCCC;
+	    box-shadow: 0 0 2px #CCCCCC;
+	    vertical-align: top;
+*/
+	}
+	
+	.wp-compoundicalc-body .calculator_form input[type="submit"] {
+/*
+	    -webkit-box-shadow: rgba(0,0,0,0.2) 0 1px 0 0;
+	    -moz-box-shadow: rgba(0,0,0,0.2) 0 1px 0 0;
+	    box-shadow: rgba(0,0,0,0.2) 0 1px 0 0;
+	    color: #333;
+	    background-color: #ddd;
+	    border-radius: 5px;
+	    -moz-border-radius: 5px;
+	    -webkit-border-radius: 5px;
+	    border: none;
+	    font-family: 'Helvetica Neue',Arial,sans-serif;
+	    font-size: 16px;
+	    font-weight: 700;
+	    height: 30px;
+*/
+	    padding: 0px;
+	    text-align: center;
+/*
+	    text-shadow: #FE6 0 1px 0;
+	    margin-right: 10px;
+*/
+	}
+	
+	.wp-compoundicalc-body .calculator_results table td, .wp-compoundicalc-body .calculator_results table th {
+	    font-size: 8.4px;
+	    line-height: 1.2em;
+	}
+	
+	.wp-compoundicalc-body .calculator_tabs li {
+		display: inline-block;
+		width: 50%;
+		line-height: 1em;
+		padding: 0.5em 0 1em 0!important;
+	}
+	
+	.wp-compoundicalc-body .calculator_tabs {
+    	height: 56px;
+	}
+	
+	.wp-compoundicalc-body .calculator-year-col .full-year {
+		display: none;
+	}
+	
+	.wp-compoundicalc-body .calculator-year-col .short-year {
+		display: block;
+	}
+	
+	.wp-compoundicalc-body .calculator-year-col {
+		width: 30px;
+	}
+	
+	.wp-compoundicalc-body .calculator_form .form_field {
+		margin: 0.2em 0;
+	}
 }

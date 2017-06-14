@@ -145,6 +145,14 @@ class CompoundCalculator_Options_Page extends scbAdminPage {
 					' . __( 'Label for inflation rate field.', $this->textdomain ) . '<br />'
 			),
 			array(
+				'title' => __( 'End Balance Label', $this->textdomain ),
+				'type' => 'text',
+				'name' => 'end_balance_text',
+				'extra' => 'size="50"',
+				'desc' => '<br />
+					' . __( 'Label for balance at end of calculation.', $this->textdomain ) . '<br />'
+			),
+			array(
 				'title' => __( 'Calculate Button', $this->textdomain ),
 				'type' => 'text',
 				'name' => 'calculate_text',
