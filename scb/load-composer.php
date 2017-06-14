@@ -1,5 +1,8 @@
 <?php
-
+if ( ! defined( 'ABSPATH' ) ) {
+	echo "access denied";
+	exit; // Exit if accessed directly
+}
 /**
  * Pass through version to use when Composer handles classes load.
  *

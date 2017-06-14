@@ -1,4 +1,8 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	echo "access denied";
+	exit; // Exit if accessed directly
+}
 /**
  * Container for an array of options.
  */

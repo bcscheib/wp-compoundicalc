@@ -1,4 +1,8 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	echo "access denied";
+	exit; // Exit if accessed directly
+}
 /**
  * Adds compatibility methods between WP_Widget and scbForms.
  */

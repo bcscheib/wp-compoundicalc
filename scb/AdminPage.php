@@ -2,6 +2,10 @@
 /**
  * Administration page base class.
  */
+if ( ! defined( 'ABSPATH' ) ) {
+	echo "access denied";
+	exit; // Exit if accessed directly
+}
 abstract class scbAdminPage {
 	/** Page args
 	 * $page_title string (mandatory)
@@ -581,4 +585,3 @@ abstract class scbAdminPage {
 		return $links;
 	}
 }
-

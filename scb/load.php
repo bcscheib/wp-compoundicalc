@@ -1,5 +1,8 @@
 <?php
-
+if ( ! defined( 'ABSPATH' ) ) {
+	echo "access denied";
+	exit; // Exit if accessed directly
+}
 $GLOBALS['_scb_data'] = array( 61, __FILE__, array(
 	'scbUtil',
 	'scbOptions',

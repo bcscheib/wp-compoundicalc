@@ -2,8 +2,10 @@
 /*
  * Uninstall plugin
  */
-if ( !defined( 'WP_UNINSTALL_PLUGIN' ) )
+if ( !defined( 'WP_UNINSTALL_PLUGIN' ) ) {
+	echo "access denied";
 	exit ();
+}
 
 $option_names = array(
 	'compoundicalc_options'

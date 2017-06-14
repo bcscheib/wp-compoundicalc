@@ -1,4 +1,8 @@
 <? 
+	if ( ! defined( 'ABSPATH' ) ) {
+		echo "access denied";
+		exit; // Exit if accessed directly
+	}
 	$last_year = !empty($schedule['years']) ? $schedule['years'][sizeof($schedule['years']) - 1] : null;
 	$end_balance = !empty($last_year) ? money_format('%(!#0n', $last_year['balance']) : null; 
 ?>

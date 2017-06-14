@@ -6,7 +6,10 @@ Version: 1.0
 Author: BenS
 Text Domain: wp-compoundicalc
 */
-
+if ( ! defined( 'ABSPATH' ) ) {
+	echo "access denied";
+	exit; // Exit if accessed directly
+}
 require_once dirname( __FILE__ ) . '/scb/load.php';
 
 function _compoundicalc_init() {
