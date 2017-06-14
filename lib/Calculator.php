@@ -1,6 +1,8 @@
 <?php
-	
-
+if ( ! defined( 'ABSPATH' ) ) {
+	echo "access denied";
+	exit; // Exit if accessed directly
+}	
 class Calculator
 {
 	public $schedule = array();
