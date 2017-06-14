@@ -105,7 +105,7 @@ function _compoundicalc_init() {
 	}
 
 	function wp_compoundicalc( $args = array() ) {
-		require_once( __DIR__ . '/lib/calculator.php' );
+		require_once( __DIR__ . '/lib/Calculator.php' );
 		
 		$core = CompoundiCalc_Core;
 		
