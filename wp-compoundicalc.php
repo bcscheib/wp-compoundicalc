@@ -13,6 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 require_once dirname( __FILE__ ) . '/scb/load.php';
 
 function _compoundicalc_init() {
+	
 	load_plugin_textdomain( 'wp-compoundicalc' );
 	
 	$translations = new scbOptions( 'compoundicalc_options', __FILE__, array(
@@ -67,6 +68,7 @@ function _compoundicalc_init() {
 	add_action( 'admin_post_wp-compoundicalc', 'wp_compoundicalc_post' );
 	add_action( 'admin_post_nopriv_wp-compoundicalc', 'wp_compoundicalc_post' );
 		
+	if( !function_exists('wp_compoundicalc_post') ) {
 	function wp_compoundicalc_post() {
 		$core = CompoundiCalc_Core;
 		$page_id = isset($_REQUEST['origin']) ? intval($_REQUEST['origin']) : null;
@@ -106,7 +108,9 @@ function _compoundicalc_init() {
 		wp_redirect($url);
 	    exit();
 	}
-
+	}
+    
+    if( !function_exists('wp_compoundicalc') ) {
 	function wp_compoundicalc( $args = array() ) {
 		require_once( __DIR__ . '/lib/Calculator.php' );
 		
@@ -123,8 +127,9 @@ function _compoundicalc_init() {
 		$core::reset_session();
 		
 		return apply_filters( 'wp_compoundicalc', $before . "<" . $wrapper_tag . " class='" . $wrapper_class . "'>\n" . $tmpl . "\n</" . $wrapper_tag . ">" . $after );
-	}
+	}}
 
+	if( !class_exists('CompoundiCalc_Core') ) {
 	class CompoundiCalc_Core {
 		
 		public static $action;
@@ -263,7 +268,8 @@ function _compoundicalc_init() {
 			return $tmpl->body;
 		}
 	}
-
+	}
+    
 	CompoundiCalc_Core::init( $translations, $default_args );
 
 	if ( is_admin() ) {
@@ -272,4 +278,3 @@ function _compoundicalc_init() {
 	}
 }
 scb_init( '_compoundicalc_init' );
-
